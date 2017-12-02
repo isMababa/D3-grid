@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html{
+            width: 100%;
+            height: 100%;
+        }
+        body{
+            width: 100%;
+            height: 100%;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #myBar{
+            display: inline-block;
+            width: 60%;
+            height:60%;
+            background-color: #cecece;
+        }
+        #xAxisBar text{
+            fill: #571f20;
+            font-size: 12px;
+        }
+        #yAxisBar text{
+            fill: #571f20;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<div id="myBar"></div>
+</body>
+</html>
+<script src="../js/d3.min.js"></script>
+<script src="../js/sandian_axis.js"></script>
+<script>
+    var dataset = [
+        ['白酒',175,1477],['饼干',249,2258],['炒货',261,2329],
+        ['除污类',230,2775],['果酒',5,2523],['护理用品',204,1886],
+        ['家用杂品',255,2333],['洁面护肤',267,1392],['进口食品',164,1551],
+        ['毛巾',68,1655],['面点类',35,2310],['面类',11,1903],
+        ['沐浴',170,1893],['啤酒',190,1898],['其他',212,1248],
+        ['肉及水产',179,1166],['食材',213,1497],['食品杂货',180,2439],
+        ['蔬菜类',10,2389],['糖果',28,1417],['调料类',299,2179],
+        ['文具期刊',203,1785],['洗发',132,1545],['洗衣类',187,1850],
+        ['香烟',234,1968],['小五金',208,1320],['休闲小食',188,1465],
+        ['牙膏牙刷',93,1492],['饮料',85,1943],['纸质品',127,2336]
+    ];
+    myBar="myBar";
+    drawbar(dataset,"myBar");
+    function drawbar(dataset,myBar) {
+        /*获取最大值*/
+        var maxX = d3.max(dataset, function (d) {
+            return d[1];
+        });
+        maxX = Math.ceil(maxX / 100) * 100;
+
+        var maxY = d3.max(dataset, function (d) {
+            return d[2];
+        });
+        maxY = Math.ceil(maxY / 1000) * 1000;
+
+        /*y轴数值范围*/
+        var yDta = [0, maxY];
+
+        /*生成x轴数据*/
+        var xDta = [0, maxX];
+
+        /*生成颜色数据量化比例尺*/
+        var leiDta = [];
+        d3.map(dataset).each(function (d) {
+            leiDta.push(d[0]);
+        });
+
+
+        /*获取比例尺并调用生成坐标轴函数*/
+        var scaleArr = axisBar(yDta, xDta, myBar);
+        /*获取x轴高度*/
+        var xwidth = scaleArr.band(scaleArr.band.domain()[1]);
+        console.log(xwidth);
+
+        var colDta = ["#c4fcff", "#8eff9c", "#70ff51", "#ceff3b", "#ffc337", "#ff674e", "#ff1735", "#ff0000"];
+        var _quanScale = d3.scaleQuantile()
+            .domain(yDta)
+            .range(colDta);
+
+
+        d3.select("#" + myBar + "tuBar").append("g")
+            .attr("id", myBar + "Bars")
+            .selectAll(".circle")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("class", "circle")
+            .attr("cx", function (d) {
+                return scaleArr.band(d[1]);
+            })
+            .attr("cy", function (d) {
+                return scaleArr.line(d[2]);
+            })
+            .attr("r", function (d) {
+                return d[2] / 150;
+            })
+            .attr("fill", function (d) {
+                return _quanScale(d[2]);
+            })
+            /*柱的鼠标经过事件*/
+            .on("mouseenter", function (d, i) {
+                /*获取该柱的坐标*/
+                var thisY = d3.select(this).attr("cy") - 0;
+                var thisX = d3.select(this).attr("cx") - 0;
+                var thisR = d3.select(this).attr("r") - 0;
+                if (thisX + thisR > xwidth - 135 + 50) {
+                    thisX = xwidth - 135 + 50 - thisR;
+                }
+                /*移出以前的鼠标经过类*/
+                d3.select(".tishi").remove();
+                d3.select(".tiShu").remove();
+                d3.select(".tiNa").remove();
+                /*添加提示框，rect，text*/
+                d3.select("#" + myBar + "Bars")
+                    .append("rect")
+                    .attr("class", "tishi")
+                    .attr("x", thisX + thisR)
+                    .attr("rx", 8)
+                    .attr("y", thisY + thisR)
+                    .attr("ry", 8)
+                    .attr("width", 135)
+                    .attr("height", 60)
+                    .attr("fill", "rgba(0,0,0,0.3)");
+                d3.select("#" + myBar + "Bars")
+                    .append("text")
+                    .attr("class", "tiNa")
+                    .attr("x", thisX + thisR + 4)
+                    .attr("y", thisY + thisR + 20)
+                    .style("fill", "#fff")
+                    .attr("text-anchor", "start")
+                    .text(d[0]);
+                d3.select("#" + myBar + "Bars")
+                    .append("text")
+                    .attr("class", "tiShu")
+                    .attr("x", thisX + thisR + 4)
+                    .attr("y", thisY + thisR + 45)
+                    .style("fill", "#fff")
+                    .attr("text-anchor", "start")
+                    .text("记录：" + d[1] + " , " + d[2]);
+
+                /*改变柱的颜色*/
+                d3.select(this)
+                    .attr("fill", "#333")
+            })
+            /*柱的鼠标移出事件*/
+            .on("mouseleave", function () {
+                /*移除所有鼠标经过的类*/
+                d3.select(".tishi").remove();
+                d3.select(".tiShu").remove();
+                d3.select(".tiNa").remove();
+                /*恢复柱的颜色*/
+                d3.select(this)
+                    .attr("fill", function (d) {
+                        return _quanScale(d[2]);
+                    })
+            });
+    }
+</script>

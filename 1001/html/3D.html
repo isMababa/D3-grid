@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html{
+            width: 100%;
+            height: 100%;
+        }
+        body{
+            width: 100%;
+            height: 100%;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #global{
+            display: inline-block;
+            width: 800px;
+            height: 600px;
+            background-color: #0f0bce;
+        }
+    </style>
+</head>
+<body>
+<div id="global"></div>
+</body>
+</html>
+<script src="../js/d3.min.js"></script>
+<script>
+    /*经纬度数据*/
+    var data={
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                180,
+                                60
+                            ],
+                            [
+                                180,
+                                20
+                            ],
+                            [
+                                180,
+                                -20
+                            ],
+                            [
+                                180,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                120,
+                                60
+                            ],
+                            [
+                                120,
+                                20
+                            ],
+                            [
+                                120,
+                                -20
+                            ],
+                            [
+                                120,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                60,
+                                60
+                            ],
+                            [
+                                60,
+                                20
+                            ],
+                            [
+                                60,
+                                -20
+                            ],
+                            [
+                                60,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                60
+                            ],
+                            [
+                                0,
+                                20
+                            ],
+                            [
+                                0,
+                                -20
+                            ],
+                            [
+                                0,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -60,
+                                60
+                            ],
+                            [
+                                -60,
+                                20
+                            ],
+                            [
+                                -60,
+                                -20
+                            ],
+                            [
+                                -60,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -120,
+                                60
+                            ],
+                            [
+                                -120,
+                                20
+                            ],
+                            [
+                                -120,
+                                -20
+                            ],
+                            [
+                                -120,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -180,
+                                60
+                            ],
+                            [
+                                -180,
+                                20
+                            ],
+                            [
+                                -180,
+                                -20
+                            ],
+                            [
+                                -180,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                60
+                            ],
+                            [
+                                60,
+                                60
+                            ],
+                            [
+                                120,
+                                60
+                            ],
+                            [
+                                180,
+                                60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                60
+                            ],
+                            [
+                                -60,
+                                60
+                            ],
+                            [
+                                -120,
+                                60
+                            ],
+                            [
+                                -180,
+                                60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                -60
+                            ],
+                            [
+                                60,
+                                -60
+                            ],
+                            [
+                                120,
+                                -60
+                            ],
+                            [
+                                180,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                -60
+                            ],
+                            [
+                                -60,
+                                -60
+                            ],
+                            [
+                                -120,
+                                -60
+                            ],
+                            [
+                                -180,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                -20
+                            ],
+                            [
+                                60,
+                                -20
+                            ],
+                            [
+                                120,
+                                -20
+                            ],
+                            [
+                                180,
+                                -20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                -20
+                            ],
+                            [
+                                -60,
+                                -20
+                            ],
+                            [
+                                -120,
+                                -20
+                            ],
+                            [
+                                -180,
+                                -20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                20
+                            ],
+                            [
+                                60,
+                                20
+                            ],
+                            [
+                                120,
+                                20
+                            ],
+                            [
+                                180,
+                                20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                20
+                            ],
+                            [
+                                -60,
+                                20
+                            ],
+                            [
+                                -120,
+                                20
+                            ],
+                            [
+                                -180,
+                                20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                60
+                            ],
+                            [
+                                60,
+                                20
+                            ],
+                            [
+                                0,
+                                -20
+                            ],
+                            [
+                                60,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                60,
+                                60
+                            ],
+                            [
+                                120,
+                                20
+                            ],
+                            [
+                                60,
+                                -20
+                            ],
+                            [
+                                120,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                120,
+                                60
+                            ],
+                            [
+                                180,
+                                20
+                            ],
+                            [
+                                120,
+                                -20
+                            ],
+                            [
+                                180,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -180,
+                                60
+                            ],
+                            [
+                                -120,
+                                20
+                            ],
+                            [
+                                -180,
+                                -20
+                            ],
+                            [
+                                -120,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -120,
+                                60
+                            ],
+                            [
+                                -60,
+                                20
+                            ],
+                            [
+                                -120,
+                                -20
+                            ],
+                            [
+                                -60,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -60,
+                                60
+                            ],
+                            [
+                                0,
+                                20
+                            ],
+                            [
+                                -60,
+                                -20
+                            ],
+                            [
+                                0,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            }
+        ]
+    };
+    var dataLine={
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                180,
+                                60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                120,
+                                60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                60,
+                                60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -60,
+                                60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -120,
+                                60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                180,
+                                20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                120,
+                                20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                60,
+                                20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -60,
+                                20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -120,
+                                20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                180,
+                                -20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                120,
+                                -20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                60,
+                                -20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                -20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -60,
+                                -20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -120,
+                                -20
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                180,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                120,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                60,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                0,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -60,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -120,
+                                -60
+                            ]
+                        ]
+                    ]
+                }
+            }
+        ]
+    };
+    var countries = data.features;
+    var lines = dataLine.features;
+    var myTimes;
+    /*投影*/
+    var globalProjection = d3.geoOrthographic().scale(245).translate([400,300]).clipAngle(180).rotate([10,-8,6]);
+    var globalProjectionIn = d3.geoOrthographic().scale(35).translate([400,300]).clipAngle(180).rotate([10,-8,6]);
+
+    var svg=d3.select("#global").append("svg")
+        .attr("width",800)
+        .attr("height",600);
+    /*外部框架（折线）*/
+    svg.selectAll(".polylineOut")
+        .data(countries)
+        .enter()
+        .append("polyline")
+        .attr("class","polylineOut")
+        .attr("points", function(d){
+            return globalProjection(d.geometry.coordinates[0][0])[0]+","+
+                globalProjection(d.geometry.coordinates[0][0])[1]+" "+
+                globalProjection(d.geometry.coordinates[0][1])[0]+","+
+                globalProjection(d.geometry.coordinates[0][1])[1]+" "+
+                globalProjection(d.geometry.coordinates[0][2])[0]+","+
+                globalProjection(d.geometry.coordinates[0][2])[1]+" "+
+                globalProjection(d.geometry.coordinates[0][3])[0]+","+
+                globalProjection(d.geometry.coordinates[0][3])[1];})
+        .attr("fill","none")
+        .attr("stroke","#fff")
+        .attr("stroke-width",1);
+    /**/
+    svg.selectAll(".lineOut")
+        .data(lines)
+        .enter()
+        .append("line")
+        .attr("class","lineOut")
+        .attr("x1", function(d){
+            return globalProjection(d.geometry.coordinates[0][0])[0];})
+        .attr("y1", function(d){
+            return globalProjection(d.geometry.coordinates[0][0])[1];})
+        .attr("x2", function(d){
+            return globalProjection(d.geometry.coordinates[0][0])[0]*1.1-(400*0.1);})
+        .attr("y2", function(d){
+            return globalProjection(d.geometry.coordinates[0][0])[1]*1.1-(300*0.1);})
+        .attr("fill","none")
+        .attr("stroke","#fff")
+        .attr("stroke-width",5);
+    svg.selectAll(".polylineIn")
+        .data(countries)
+        .enter()
+        .append("polyline")
+        .attr("class","polylineIn")
+        .attr("points", function(d){
+            return globalProjectionIn(d.geometry.coordinates[0][0])[0]+","+
+                globalProjectionIn(d.geometry.coordinates[0][0])[1]+" "+
+                globalProjectionIn(d.geometry.coordinates[0][1])[0]+","+
+                globalProjectionIn(d.geometry.coordinates[0][1])[1]+" "+
+                globalProjectionIn(d.geometry.coordinates[0][2])[0]+","+
+                globalProjectionIn(d.geometry.coordinates[0][2])[1]+" "+
+                globalProjectionIn(d.geometry.coordinates[0][3])[0]+","+
+                globalProjectionIn(d.geometry.coordinates[0][3])[1];})
+        .attr("fill","none")
+        .attr("stroke","#fff")
+        .attr("stroke-width",1);
+    svg.selectAll(".lineIn")
+        .data(lines)
+        .enter()
+        .append("line")
+        .attr("class","lineIn")
+        .attr("x1", function(d){
+            return globalProjectionIn(d.geometry.coordinates[0][0])[0];})
+        .attr("y1", function(d){
+            return globalProjectionIn(d.geometry.coordinates[0][0])[1];})
+        .attr("x2", function(d){
+            return globalProjectionIn(d.geometry.coordinates[0][0])[0]*2-(400*1);})
+        .attr("y2", function(d){
+            return globalProjectionIn(d.geometry.coordinates[0][0])[1]*2-(300*1);})
+        .attr("fill","none")
+        .attr("stroke","#fff")
+        .attr("stroke-width",2);
+    svg.selectAll(".lineLink")
+        .data(lines)
+        .enter()
+        .append("line")
+        .attr("class","lineLink")
+        .attr("x1", function(d){
+            if(d.geometry.coordinates[0][0][1]===-20){
+                return globalProjection([0,-20])[0];
+            }else if(d.geometry.coordinates[0][0][1]===-60){
+                return globalProjection([-120,-60])[0];
+            }else if(d.geometry.coordinates[0][0][1]===20){
+                return globalProjection([180,20])[0];
+            }else if(d.geometry.coordinates[0][0][1]===60){
+                return globalProjection([60,60])[0];
+            }
+            })
+        .attr("y1", function(d){
+            if(d.geometry.coordinates[0][0][1]===-20){
+                return globalProjection([0,-20])[1];
+            }else if(d.geometry.coordinates[0][0][1]===-60){
+                return globalProjection([-120,-60])[1];
+            }else if(d.geometry.coordinates[0][0][1]===20){
+                return globalProjection([180,20])[1];
+            }else if(d.geometry.coordinates[0][0][1]===60){
+                return globalProjection([60,60])[1];
+            }})
+        .attr("x2", function(d){
+            return globalProjectionIn(d.geometry.coordinates[0][0])[0]*2-(400*1);})
+        .attr("y2", function(d){
+            return globalProjectionIn(d.geometry.coordinates[0][0])[1]*2-(300*1);})
+        .attr("fill","none")
+        .attr("stroke","#fff")
+        .attr("stroke-width",1);
+    /*拖拽*/
+    d3.select("svg").call( /* 拖动事件在 SVG 元素上发生 */
+        d3.drag()
+            .on("start",function() {
+                clearInterval(myTimes);
+                var r = globalProjection.rotate(); /* 目前转动的角度 ... */
+                var rIn = globalProjectionIn.rotate();
+                return [{x: r[0], y: -r[1]},{x: rIn[0], y: -rIn[1]}]; /* ... 做为这次拖动的起点 */
+            })
+            .on("drag", function() {
+                var r = globalProjection.rotate();
+                var rIn = globalProjectionIn.rotate();
+                /* 更新投影的角度 */
+                globalProjection.rotate([d3.event.x, -d3.event.y, r[2]]);
+                globalProjectionIn.rotate([d3.event.x, -d3.event.y, rIn[2]]);
+                /* 更新完投影后必须要重画一遍地图 */
+                reWrite();
+            })
+            .on("end",function() {
+                var r = globalProjection.rotate(); /* 目前转动的角度 ... */
+                var rIn = globalProjectionIn.rotate();
+                myTimes=setInterval(setIn,10);
+                return [{x: r[0], y: -r[1]},{x: rIn[0], y: -rIn[1]}]; /* ... 做为这次拖动的起点 */
+            })
+        );
+
+    myTimes=setInterval(setIn,10);
+    /*自转函数*/
+    function setIn() {
+        var rInterval = globalProjection.rotate();
+        var rInInterval = globalProjectionIn.rotate();
+        var rInterval0=rInterval[0]+0.5;
+        var rInInterval0=rInInterval[1]+0.5;
+        var rInterval1=rInterval[0]+0.5;
+        var rInInterval1=rInInterval[1]+0.5;
+        /* 更新投影的角度 */
+        globalProjection.rotate([rInterval0, rInterval1, rInterval[2]]);
+        globalProjectionIn.rotate([rInInterval0,rInInterval1, rInInterval[2]]);
+        reWrite();
+    }
+    /*重新加载图形*/
+    function reWrite() {
+        svg.selectAll(".polylineOut")
+            .attr("points", function(d){
+                return globalProjection(d.geometry.coordinates[0][0])[0]+","+
+                    globalProjection(d.geometry.coordinates[0][0])[1]+" "+
+                    globalProjection(d.geometry.coordinates[0][1])[0]+","+
+                    globalProjection(d.geometry.coordinates[0][1])[1]+" "+
+                    globalProjection(d.geometry.coordinates[0][2])[0]+","+
+                    globalProjection(d.geometry.coordinates[0][2])[1]+" "+
+                    globalProjection(d.geometry.coordinates[0][3])[0]+","+
+                    globalProjection(d.geometry.coordinates[0][3])[1];})
+            .attr("fill","none")
+            .attr("stroke","#fff")
+            .attr("stroke-width",1);
+        svg.selectAll(".lineOut")
+            .attr("x1", function(d){
+                return globalProjection(d.geometry.coordinates[0][0])[0];})
+            .attr("y1", function(d){
+                return globalProjection(d.geometry.coordinates[0][0])[1];})
+            .attr("x2", function(d){
+                return globalProjection(d.geometry.coordinates[0][0])[0]*1.1-(400*0.1);})
+            .attr("y2", function(d){
+                return globalProjection(d.geometry.coordinates[0][0])[1]*1.1-(300*0.1);})
+            .attr("fill","none")
+            .attr("stroke","#fff")
+            .attr("stroke-width",5);
+        svg.selectAll(".polylineIn")
+            .attr("points", function(d){
+                return globalProjectionIn(d.geometry.coordinates[0][0])[0]+","+
+                    globalProjectionIn(d.geometry.coordinates[0][0])[1]+" "+
+                    globalProjectionIn(d.geometry.coordinates[0][1])[0]+","+
+                    globalProjectionIn(d.geometry.coordinates[0][1])[1]+" "+
+                    globalProjectionIn(d.geometry.coordinates[0][2])[0]+","+
+                    globalProjectionIn(d.geometry.coordinates[0][2])[1]+" "+
+                    globalProjectionIn(d.geometry.coordinates[0][3])[0]+","+
+                    globalProjectionIn(d.geometry.coordinates[0][3])[1];})
+            .attr("fill","none")
+            .attr("stroke","#fff")
+            .attr("stroke-width",1);
+        svg.selectAll(".lineIn")
+            .attr("x1", function(d){
+                return globalProjectionIn(d.geometry.coordinates[0][0])[0];})
+            .attr("y1", function(d){
+                return globalProjectionIn(d.geometry.coordinates[0][0])[1];})
+            .attr("x2", function(d){
+                return globalProjectionIn(d.geometry.coordinates[0][0])[0]*2-(400*1);})
+            .attr("y2", function(d){
+                return globalProjectionIn(d.geometry.coordinates[0][0])[1]*2-(300*1);})
+            .attr("fill","none")
+            .attr("stroke","#fff")
+            .attr("stroke-width",2);
+
+        svg.selectAll(".lineLink")
+            .attr("x1", function(d){
+                if(d.geometry.coordinates[0][0][1]===-20){
+                    return globalProjection([0,-20])[0];
+                }else if(d.geometry.coordinates[0][0][1]===-60){
+                    return globalProjection([-120,-60])[0];
+                }else if(d.geometry.coordinates[0][0][1]===20){
+                    return globalProjection([180,20])[0];
+                }else if(d.geometry.coordinates[0][0][1]===60){
+                    return globalProjection([60,60])[0];
+                }
+            })
+            .attr("y1", function(d){
+                if(d.geometry.coordinates[0][0][1]===-20){
+                    return globalProjection([0,-20])[1];
+                }else if(d.geometry.coordinates[0][0][1]===-60){
+                    return globalProjection([-120,-60])[1];
+                }else if(d.geometry.coordinates[0][0][1]===20){
+                    return globalProjection([180,20])[1];
+                }else if(d.geometry.coordinates[0][0][1]===60){
+                    return globalProjection([60,60])[1];
+                }})
+            .attr("x2", function(d){
+                return globalProjectionIn(d.geometry.coordinates[0][0])[0]*2-(400*1);})
+            .attr("y2", function(d){
+                return globalProjectionIn(d.geometry.coordinates[0][0])[1]*2-(300*1);})
+            .attr("fill","none")
+            .attr("stroke","#fff")
+            .attr("stroke-width",1);
+    }
+</script>
